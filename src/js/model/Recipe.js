@@ -17,4 +17,13 @@ export default class Recipe {
     this.title = result.data.recipe.title;
     this.social_rank = result.data.recipe.social_rank;
   }
+
+  calcTime() {
+    //Ingredients about 5 min
+    this.time = this.ingredients.length * 5;
+  }
+
+  calcPerson() {
+    this.person = 4;
+  }
 }

@@ -14,6 +14,10 @@ import Recipe from "./model/Recipe";
 
 const state = {};
 
+/*
+ * Searcj controller = MVC = Controller = Model <==> View
+ */
+
 const controlSearch = async () => {
   //1. Get the keyword form form
   const query = searchView.getInput();
@@ -36,8 +40,6 @@ const controlSearch = async () => {
 elements.searchForm.addEventListener("submit", e => {
   e.preventDefault();
   controlSearch();
-  //   const sr = new Search("pizza");
-  //   sr.doSearch().then(r => console.log(r));
 });
 
 elements.pageButtons.addEventListener("click", e => {
@@ -48,6 +50,22 @@ elements.pageButtons.addEventListener("click", e => {
     searchView.renderRecipes(state.search.result, gotoPageNumber);
   }
 });
-
-const r = new Recipe(47746);
-r.getRecipe();
+// const r = new Recipe(47746);
+/*
+ * Recipe Controller
+ */
+const controlRecipe = async () => {
+  //1 Get id form url
+  const id = window.location.hash.replace("#", "");
+  //2 Create New Recipe model
+  state.recipe = new Recipe(id);
+  //3 Prepare for UI display
+  //4 Download Ingredients
+  await state.recipe.getRecipe();
+  //5 Implement for ing and time
+  state.recipe.calcTime();
+  state.recipe.calcPerson();
+  //6 Show Ing on Display
+  console.log(state.recipe);
+};
+window.addEventListener("hashchange", controlRecipe);
