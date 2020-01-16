@@ -38,3 +38,12 @@ elements.searchForm.addEventListener("submit", e => {
   //   const sr = new Search("pizza");
   //   sr.doSearch().then(r => console.log(r));
 });
+
+elements.pageButtons.addEventListener("click", e => {
+  const btn = e.target.closest(".btn-inline");
+  if (btn) {
+    const gotoPageNumber = parseInt(btn.dataset.goto);
+    searchView.clearSearchList();
+    searchView.renderRecipes(state.search.result, gotoPageNumber);
+  }
+});
